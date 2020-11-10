@@ -2,13 +2,9 @@
 
 ### Introduction
 
-This project is focused on building an ETL pipeline for extracting , transforming and loading the disaster message data from Future Eight. 
+This project is focused on building an ETL pipeline for extracting , transforming and loading the disaster message data from Future Eight and then using that transformed and cleaned data to help build a Machine Learning model to help determine if a message can be classified into one of the categories of distater.
 
-Our goal here is to build a machine learning model to identify if these messages are related to disaster or not, and further label the nature of these messages. This would be of great help for some disaster relief agencies. We have 36 labels for these messages in total. Note, however, these labels are not mutually exclusive. Hence it is a multi-label classification problem.
-
-The most obvious feature of those data messages is they are highly imbalanced. Several categories getting very few labels. To improve the accuracy, we implement a up-sample scheme before training.
-
-After building and training such a model, we can next launch a web service which can label new messages from users' input.
+The model and the cleaned data are visualized using a flask web app. 
 
 ### Instructions:
 1. Run the following commands in the project's root directory to set up your database and model.
@@ -21,7 +17,7 @@ After building and training such a model, we can next launch a web service which
 2. Run the following command in the app's directory to run your web app.
     `python run.py`
 
-3. Go to http://0.0.0.0:3001/
+3. Go to http://0.0.0.0:3001/ or https://view6914b2f4-3001.udacity-student-workspaces.com/
 
 ### Software Packages
 
@@ -32,6 +28,8 @@ Pandas
 nltk
 scikit-learn
 sqlalchemy
+plotly
+flask
 
 
 ### Acknowledgment
