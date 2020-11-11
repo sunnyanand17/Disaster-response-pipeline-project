@@ -26,7 +26,7 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-engine = create_engine('sqlite:///DisasterResponse.db')
+engine = create_engine('sqlite:///../data/DisasterResponse.db')
 df = pd.read_sql_table('cleaned_table', engine)
 
 # load model
@@ -43,8 +43,12 @@ def index():
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
     # distribution of categories
-    label_sums = df.iloc[:, 4:].sum()
-    label_names = list(label_sums.index)
+    label_sum = df.iloc[:, 4:].sum()
+    label_name = list(label_sum.index)
+    # data for 3rd figure 
+    row_sum = df.drop(columns = ['id', 'message', 'original', 'genre']).sum(axis=1)
+    mul_count = row_sum.value_counts().sort_index()
+    multi_label, multi_label_count = mul_count.index, mul_count.values
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
@@ -70,8 +74,8 @@ def index():
         {
             'data': [
                 Bar(
-                    x=label_names,
-                    y=label_sums,
+                    x=label_name,
+                    y=label_sum,
                 )
             ],
 
@@ -84,6 +88,25 @@ def index():
 
                 },
             }
+        },
+        {
+            'data': [
+                Bar(
+                    x=multi_label,
+                    y=multi_label_count,
+                )
+            ],
+
+            'layout': {
+                'title': 'count of labels per message',
+                'yaxis': {
+                    'title': "# Messages"
+                },
+                'xaxis': {
+                    'title': "# labels"
+                }
+            }
+
         }
     ]
     
