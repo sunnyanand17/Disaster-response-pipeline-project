@@ -36,10 +36,13 @@ def clean_data(df):
         categories[column] = categories[column].astype(str).str[-1:]
         # convert column from string to numeric
         categories[column] = categories[column].astype(int)
+        # change 2 to 1
+        categories[column] = categories[column].apply(lambda x: 1 if x==2 or x==1 else 0)
         
     df.drop(["categories"], axis=1, inplace=True)
     df = pd.concat([df,categories], join='inner', axis=1 )
     df.drop_duplicates(inplace=True)
+    #print(df["related"].head(20))
     
     return df
     
